@@ -1,0 +1,15 @@
+{% extends 'coursinary_app/base.html' %}
+
+{% block page_header %}
+	<div class="jumbotron">
+		<h1 class="display-4">Learn about your future classes</h1>
+
+		<p class="lead">Coursinary allows students to read more about a course from students who have already taken it. Currently, this web app supports only students from the <a href="https://www.ucmerced.edu/" target="_blank">University of California, Merced.</a></p>
+
+		<a class="btn btn-mdm btn-primary" href="{% url 'coursinary_app:subjects' %}" role="button">Subjects &raquo;</a>
+	</div>
+{% endblock page_header %}
+
+{% block content %}
+	<p>Testers, <a href="https://forms.gle/QiqEpC5Asae4Ejqj9" target="_blank">fill out this form after testing please!</a></p>
+{% endblock content %}

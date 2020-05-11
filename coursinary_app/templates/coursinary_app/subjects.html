@@ -1,0 +1,17 @@
+{% extends 'coursinary_app/base.html' %}
+
+{% block page_header %}
+	<h3>Subjects</h3>
+{% endblock page_header %}
+
+{% block content %}
+
+	<ul>
+		{% for subject in subjects %}
+			<li>
+				<a href="{% url 'coursinary_app:subject' subject.code %}">{{ subject }}</a>
+			</li>
+		{% endfor %}
+	</ul>
+
+{% endblock content %}

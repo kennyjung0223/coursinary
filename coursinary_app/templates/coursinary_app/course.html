@@ -1,0 +1,28 @@
+{% extends 'coursinary_app/base.html' %}
+
+{% block page_header %}
+	<h3>{{ course }}</h3>
+{% endblock page_header %}
+
+{% block content %}
+
+	<p><a href="{% url 'coursinary_app:subject' course.code %}">Go back to {{ course.code }}</a></p>
+
+	<p>
+		<a href="{% url 'coursinary_app:new_entry' course.code course.course_number %}">Add new entry</a>
+	</p>
+
+	{% for entry in entries %}
+		<div class="card mb-3">
+			<h4 class="card-header">
+				{{ entry.date_added }}
+			</h4>
+			<div class="card-body">
+				{{ entry.text|linebreaks }}
+			</div>
+		</div>
+	{% empty %}
+		<p>There are no entries for this course yet.</p>
+	{% endfor %}
+
+{% endblock content %}
