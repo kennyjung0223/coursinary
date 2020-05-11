@@ -15,7 +15,7 @@
 	{% for entry in entries %}
 		<div class="card mb-3">
 			<h4 class="card-header">
-				{{ entry.date_added }}
+				{{ entry.date_added|date:'M d, Y'}}
 			</h4>
 			<div class="card-body">
 				{{ entry.text|linebreaks }}
