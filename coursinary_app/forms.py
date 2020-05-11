@@ -53,3 +53,19 @@ class EntryForm(forms.ModelForm):
 		fields = ['text']
 		labels = {'text': ''}
 		widgets = {'text': forms.Textarea(attrs={'cols': 80, 'placeholder': 'You can expect this class to be...'}),}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
