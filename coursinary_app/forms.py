@@ -50,6 +50,8 @@ class CourseForm(forms.ModelForm):
 				  }
 
 class EntryForm(forms.ModelForm):
+	captcha = ReCaptchaField()
+	
 	class Meta:
 		model = Entry
 		fields = ['text']
