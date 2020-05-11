@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 
 from .models import Subject, Course
@@ -18,20 +18,21 @@ def subject(request, subject_code):
 	"""Show all courses in a particular subject"""
 	if not Course.objects.all().exists():
 		raise Http404
+
 	courses = Course.objects.filter(code=subject_code).order_by('text')
 	context = {'courses': courses, 'subject_code': subject_code}
 	return render(request, 'coursinary_app/subject.html', context)
 
 def course(request, course_code, course_course_number):
 	"""Show a single course and all its entries"""
-	course = Course.objects.get(code=course_code, course_number=course_course_number)
+	course = get_object_or_404(Course, code=course_code, course_number=course_course_number)
 	entries = course.entry_set.order_by('-date_added')
 	context = {'course': course, 'entries': entries}
 	return render(request, 'coursinary_app/course.html', context)
 
 def new_course(request, subject_code):
 	"""Add a new course for a subject"""
-	subject = Subject.objects.get(code=subject_code)
+	subject = get_object_or_404(Subject, code=subject_code)
 
 	if request.method != 'POST':
 		# No data submitted; create a blank form
@@ -52,7 +53,7 @@ def new_course(request, subject_code):
 
 def new_entry(request, course_code, course_course_number):
 	"""Add a new entry for a course"""
-	course = Course.objects.get(code=course_code, course_number=course_course_number)
+	course = get_object_or_404(Course, code=course_code, course_number=course_course_number)
 
 	if request.method != 'POST':
 		# No data submitted; create a blank form
