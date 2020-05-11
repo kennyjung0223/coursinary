@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import Http404
 
 from .models import Subject, Course
 from .forms import CourseForm, EntryForm
@@ -15,6 +16,8 @@ def subjects(request):
 
 def subject(request, subject_code):
 	"""Show all courses in a particular subject"""
+	if not Course.objects.all().exists():
+		raise Http404
 	courses = Course.objects.filter(code=subject_code).order_by('text')
 	context = {'courses': courses, 'subject_code': subject_code}
 	return render(request, 'coursinary_app/subject.html', context)
