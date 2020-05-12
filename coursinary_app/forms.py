@@ -44,7 +44,7 @@ class CourseForm(forms.ModelForm):
 				  'course_number': 'Course Number'
 				  }
 		widgets = {
-				  'text': forms.TextInput(attrs={'placeholder': 'i.e. ABC 123: Example Course'}),
+				  'text': forms.TextInput(attrs={'placeholder': 'i.e. Example Course'}),
 				  'code': forms.Select(choices=CODE_CHOICES),
 				  'course_number': forms.TextInput(attrs={'placeholder': 'i.e. 123'}),
 				  }

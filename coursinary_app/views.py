@@ -19,7 +19,7 @@ def subject(request, subject_code):
 	if not Course.objects.all().exists():
 		raise Http404
 
-	courses = Course.objects.filter(code=subject_code).order_by('text')
+	courses = Course.objects.filter(code=subject_code).order_by('course_number')
 	context = {'courses': courses, 'subject_code': subject_code}
 	return render(request, 'coursinary_app/subject.html', context)
 

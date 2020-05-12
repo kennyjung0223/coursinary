@@ -14,7 +14,7 @@
 	<ul>
 		{% for course in courses %}
 			<li>
-				<a href="{% url 'coursinary_app:course' course.code course.course_number %}">{{ course }}</a>
+				<a href="{% url 'coursinary_app:course' course.code course.course_number %}">{{ course.code }} {{ course.course_number }}: {{ course }}</a>
 			</li>
 		{% empty %}
 			<li>No courses have been added yet.</li>
