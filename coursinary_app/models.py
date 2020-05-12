@@ -4,7 +4,7 @@ from django.utils import timezone
 class Subject(models.Model):
 	"""Subject of a particular course"""
 	text = models.CharField(max_length=50)
-	code = models.CharField(max_length=4)
+	code = models.CharField(max_length=5)
 
 	def __str__(self):
 		"""Return a string representation of a model"""
@@ -14,7 +14,7 @@ class Course(models.Model):
 	"""Particular course"""
 	subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
 	text = models.CharField(max_length=60)
-	code = models.CharField(max_length=4)
+	code = models.CharField(max_length=5)
 	course_number = models.CharField(max_length=4)
 
 	class Meta:
