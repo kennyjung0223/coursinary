@@ -43,10 +43,10 @@ def new_course(request, subject_code):
 		form = CourseForm(data=request.POST)
 
 		if form.is_valid():
-			course_name_exists = Course.objects.filter(code=subject_code).values_list('text').filter(text=form['text'].data.title()).exists()
+			course_name_exists = Course.objects.filter(code=subject_code).values_list('text').filter(text=form['text'].data).exists()
 			course_number_exists = Course.objects.filter(code=subject_code).values_list('course_number').filter(course_number=form['course_number'].data).exists()
 
-			if not form['course_number'].data.isnumeric:
+			if not form['course_number'].data.isnumeric():
 				form = CourseForm()
 				messages.error(request, 'Invalid course number')
 				
