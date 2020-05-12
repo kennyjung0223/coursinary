@@ -3,26 +3,26 @@ from django.utils import timezone
 
 class Subject(models.Model):
 	"""Subject of a particular course"""
-	subject_name = models.CharField(max_length=50)
+	text = models.CharField(max_length=50)
 	code = models.CharField(max_length=4)
 
 	def __str__(self):
 		"""Return a string representation of a model"""
-		return self.subject_name
+		return self.text
 
 class Course(models.Model):
 	"""Particular course"""
 	subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-	course_name = models.CharField(max_length=60)
+	text = models.CharField(max_length=60)
 	code = models.CharField(max_length=4)
-	course_number = models.CharField(max_length=3)
+	course_number = models.CharField(max_length=4)
 
 	class Meta:
 		verbose_name_plural = 'courses'
 
 	def __str__(self):
 		"""Return a string representation of the model"""
-		return self.course_name
+		return self.text
 
 class Entry(models.Model):
 	"""Entry that explains more about a particular course"""
