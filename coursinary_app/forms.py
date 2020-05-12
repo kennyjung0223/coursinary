@@ -35,17 +35,17 @@ class CourseForm(forms.ModelForm):
 		model = Course
 		fields = [
 				  'text', 
-				  'code', 
+				  #'code', 
 				  'course_number'
 				  ]
 		labels = {
 				  'text': 'Course Name', 
-				  'code': 'Subject Code', 
+				  #'code': 'Subject Code', 
 				  'course_number': 'Course Number'
 				  }
 		widgets = {
 				  'text': forms.TextInput(attrs={'placeholder': 'i.e. Example Course'}),
-				  'code': forms.Select(choices=CODE_CHOICES),
+				  #'code': forms.Select(choices=CODE_CHOICES),
 				  'course_number': forms.TextInput(attrs={'placeholder': 'i.e. 123'}),
 				  }
 

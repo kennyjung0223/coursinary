@@ -43,6 +43,7 @@ def new_course(request, subject_code):
 		if form.is_valid():
 			new_course = form.save(commit=False)
 			new_course.subject = subject
+			new_course.code = subject_code
 			new_course.save()
 			return redirect('coursinary_app:subject', subject_code=subject_code)
 
