@@ -10,15 +10,15 @@ class CourseForm(forms.ModelForm):
 	class Meta:
 		model = Course
 		fields = [
-				  'text', 
+				  'course_name', 
 				  'course_number'
 				  ]
 		labels = {
-				  'text': 'Course Name', 
+				  'course_name': 'Course Name', 
 				  'course_number': 'Course Number'
 				  }
 		widgets = {
-				  'text': forms.TextInput(attrs={'placeholder': 'i.e. Example Course'}),
+				  'course_name': forms.TextInput(attrs={'placeholder': 'i.e. Example Course'}),
 				  'course_number': forms.TextInput(attrs={'placeholder': 'i.e. 123'}),
 				  }
 
@@ -30,18 +30,4 @@ class EntryForm(forms.ModelForm):
 		fields = ['text']
 		labels = {'text': ''}
 		widgets = {'text': forms.Textarea(attrs={'cols': 80, 'placeholder': 'You can expect this class to be...'}),}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
