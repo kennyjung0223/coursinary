@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
+from django.contrib import messages
 
 from .models import Subject, Course
 from .forms import CourseForm, EntryForm
@@ -40,12 +41,29 @@ def new_course(request, subject_code):
 	else:
 		# POST data submitted; process data
 		form = CourseForm(data=request.POST)
+
 		if form.is_valid():
-			new_course = form.save(commit=False)
-			new_course.subject = subject
-			new_course.code = subject_code
-			new_course.save()
-			return redirect('coursinary_app:subject', subject_code=subject_code)
+			course_name_exists = Course.objects.filter(code=subject_code).values_list('text').filter(text=form['text'].data).exists()
+			course_number_exists = Course.objects.filter(code=subject_code).values_list('course_number').filter(course_number=form['course_number'].data).exists()
+
+			if course_name_exists and course_number_exists:
+				form = CourseForm()
+				messages.error(request, 'That course already exists')
+			
+			elif course_name_exists:
+				form = CourseForm()
+				messages.error(request, 'That course name already exists')
+			
+			elif course_number_exists:
+				form = CourseForm()
+				messages.error(request, 'That course number already exists')
+			
+			else:
+				new_course = form.save(commit=False)
+				new_course.subject = subject
+				new_course.code = subject_code
+				new_course.save()
+				return redirect('coursinary_app:subject', subject_code=subject_code)
 
 	# Display a blank or invalid form
 	context = {'subject': subject, 'subject_code': subject.code, 'form': form}
@@ -71,16 +89,5 @@ def new_entry(request, course_code, course_course_number):
 	# Display a blank or invalid form
 	context = {'course': course, 'course_code': course.code, 'course_number': course.course_number, 'form': form}
 	return render(request, 'coursinary_app/new_entry.html', context)
-
-
-
-
-
-
-
-
-
-
-
 
 
