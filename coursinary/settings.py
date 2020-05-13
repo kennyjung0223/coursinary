@@ -39,7 +39,7 @@ INSTALLED_APPS = [
 
     # Third party apps
     'bootstrap4',
-    'titlecase'
+    'titlecase',
     #'captcha',
 
     # Default django apps
