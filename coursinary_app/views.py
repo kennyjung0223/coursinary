@@ -5,6 +5,8 @@ from django.contrib import messages
 from .models import Subject, Course
 from .forms import CourseForm, EntryForm
 
+from titlecase import titlecase
+
 def index(request):
 	"""The home page for Coursinary"""
 	return render(request, 'coursinary_app/index.html')
@@ -43,10 +45,11 @@ def new_course(request, subject_code):
 		form = CourseForm(data=request.POST)
 
 		if form.is_valid():
-			course_name_exists = Course.objects.filter(code=subject_code).values_list('text').filter(text=form['text'].data.title()).exists()
+			course_name = ''.join(titlecase(form['text'].data))
+			course_name_exists =Course.objects.filter(code=subject_code).values_list('text').filter(text=course_name).exists()
 			course_number_exists = Course.objects.filter(code=subject_code).values_list('course_number').filter(course_number=form['course_number'].data).exists()
 
-			if not form['course_number'].data.isnumeric():
+			if not form['course_number'].data[:3].isnumeric():
 				form = CourseForm()
 				messages.error(request, 'Invalid course number')
 				
@@ -66,6 +69,7 @@ def new_course(request, subject_code):
 				new_course = form.save(commit=False)
 				new_course.subject = subject
 				new_course.code = subject_code
+				new_course.text = course_name
 				new_course.save()
 				return redirect('coursinary_app:subject', subject_code=subject_code)
 
