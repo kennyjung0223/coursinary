@@ -45,7 +45,7 @@ def new_course(request, subject_code):
 		form = CourseForm(data=request.POST)
 
 		if form.is_valid():
-			course_name = ''.join(titlecase(form['text'].data))
+			course_name = ''.join(titlecase(form['text'].data)).replace("Intro", "Introduction")
 			course_number = ''.join(form['course_number'].data.title())
 			course_name_exists =Course.objects.filter(code=subject_code).values_list('text').filter(text=course_name).exists()
 			course_number_exists = Course.objects.filter(code=subject_code).values_list('course_number').filter(course_number=course_number).exists()
