@@ -46,8 +46,9 @@ def new_course(request, subject_code):
 
 		if form.is_valid():
 			course_name = ''.join(titlecase(form['text'].data))
+			course_number = ''.join(form['course_number'].data.title())
 			course_name_exists =Course.objects.filter(code=subject_code).values_list('text').filter(text=course_name).exists()
-			course_number_exists = Course.objects.filter(code=subject_code).values_list('course_number').filter(course_number=form['course_number'].data).exists()
+			course_number_exists = Course.objects.filter(code=subject_code).values_list('course_number').filter(course_number=course_number).exists()
 
 			if not form['course_number'].data[:3].isnumeric():
 				form = CourseForm()
@@ -70,6 +71,7 @@ def new_course(request, subject_code):
 				new_course.subject = subject
 				new_course.code = subject_code
 				new_course.text = course_name
+				new_course.course_number = course_number
 				new_course.save()
 				return redirect('coursinary_app:subject', subject_code=subject_code)
 
