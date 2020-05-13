@@ -26,7 +26,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'Optional default value')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     # Third party apps
     'bootstrap4',
+    'titlecase'
     #'captcha',
 
     # Default django apps
