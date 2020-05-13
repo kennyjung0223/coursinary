@@ -24,7 +24,6 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'Optional default value')
 RECAPTCHA_PUBLIC_KEY = os.getenv('RECAPTCHA_PUBLIC_KEY', 'Optional default value')
 RECAPTCHA_PRIVATE_KEY = os.getenv('RECAPTCHA_PRIVATE_KEY', 'Optional default value')
 
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
