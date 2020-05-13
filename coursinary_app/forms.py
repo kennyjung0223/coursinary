@@ -1,11 +1,10 @@
 from django import forms
-#from captcha.fields import ReCaptchaField
+from captcha.fields import ReCaptchaField
 
 from .models import Subject, Course, Entry
 
 class CourseForm(forms.ModelForm):
-	#code = forms.ModelChoiceField(queryset=Subject.objects.values_list('code', flat=True))
-	#captcha = ReCaptchaField()
+	captcha = ReCaptchaField()
 
 	class Meta:
 		model = Course
@@ -23,7 +22,7 @@ class CourseForm(forms.ModelForm):
 				  }
 
 class EntryForm(forms.ModelForm):
-	#captcha = ReCaptchaField()
+	captcha = ReCaptchaField()
 	
 	class Meta:
 		model = Entry
