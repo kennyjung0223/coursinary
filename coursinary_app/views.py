@@ -61,11 +61,12 @@ def new_course(request, subject_code):
 		if form.is_valid():
 			course_name = ''.join(titlecase(form['text'].data)).replace("Intro", "Introduction")
 			course_number = ''.join(form['course_number'].data.title())
-			course_name_exists =Course.objects.filter(code=subject_code).values_list('text').filter(text=course_name).exists()
-			course_number_exists = Course.objects.filter(code=subject_code).values_list('course_number').filter(course_number=course_number).exists()
 
 			while len(course_number) < 3:
 				course_number = '0' + course_number
+
+			course_name_exists =Course.objects.filter(code=subject_code).values_list('text').filter(text=course_name).exists()
+			course_number_exists = Course.objects.filter(code=subject_code).values_list('course_number').filter(course_number=course_number).exists()
 
 			if not form['course_number'].data[:3].isnumeric() or course_name_exists or course_number_exists:
 				check_for_errors(request, form, course_name_exists, course_number_exists)	
@@ -107,7 +108,7 @@ def new_entry(request, course_code, course_course_number):
 def check_for_errors(request, form, course_name_exists, course_number_exists):
 	if not form['course_number'].data[:3].isnumeric():
 		messages.error(request, 'Invalid course number')
-				
+
 	elif course_name_exists:
 		messages.error(request, 'That course name already exists')
 			
