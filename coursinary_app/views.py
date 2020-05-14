@@ -7,6 +7,20 @@ from .forms import CourseForm, EntryForm
 
 from titlecase import titlecase
 
+""" not to be added yet until final version
+if not Subject.objects.all():
+	filename1 = 'coursinary_app/course_files/subjects.txt'
+	filename2 = 'coursinary_app/course_files/subject_codes.txt'
+
+	with open(filename1) as f:
+		subjects = f.readlines()
+
+	with open(filename2) as f:
+		subject_codes = f.readlines()
+
+	for i in range(len(subjects)):
+		Subject.objects.create(text=subjects[i].rstrip(), code=subject_codes[i].rstrip())"""
+
 def index(request):
 	"""The home page for Coursinary"""
 	return render(request, 'coursinary_app/index.html')
@@ -53,22 +67,9 @@ def new_course(request, subject_code):
 			while len(course_number) < 3:
 				course_number = '0' + course_number
 
-			if not form['course_number'].data[:3].isnumeric():
+			if not form['course_number'].data[:3].isnumeric() or course_name_exists or course_number_exists:
+				check_for_errors(request, form, course_name_exists, course_number_exists)	
 				form = CourseForm()
-				messages.error(request, 'Invalid course number')
-				
-			elif course_name_exists and course_number_exists:
-				form = CourseForm()
-				messages.error(request, 'That course already exists')
-			
-			elif course_name_exists:
-				form = CourseForm()
-				messages.error(request, 'That course name already exists')
-			
-			elif course_number_exists:
-				form = CourseForm()
-				messages.error(request, 'That course number already exists')
-			
 			else:
 				new_course = form.save(commit=False)
 				new_course.subject = subject
@@ -81,7 +82,6 @@ def new_course(request, subject_code):
 	# Display a blank or invalid form
 	context = {'subject': subject, 'subject_code': subject.code, 'form': form}
 	return render(request, 'coursinary_app/new_course.html', context)
-
 
 def new_entry(request, course_code, course_course_number):
 	"""Add a new entry for a course"""
@@ -103,4 +103,13 @@ def new_entry(request, course_code, course_course_number):
 	context = {'course': course, 'course_code': course.code, 'course_number': course.course_number, 'form': form}
 	return render(request, 'coursinary_app/new_entry.html', context)
 
-
+# Helper functions
+def check_for_errors(request, form, course_name_exists, course_number_exists):
+	if not form['course_number'].data[:3].isnumeric():
+		messages.error(request, 'Invalid course number')
+				
+	elif course_name_exists:
+		messages.error(request, 'That course name already exists')
+			
+	elif course_number_exists:
+		messages.error(request, 'That course number already exists')
