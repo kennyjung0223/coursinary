@@ -7,7 +7,7 @@
 
 {% block content %}
 
-	<p><a href="{% url 'coursinary_app:subject' course.code %}">Go back to {{ course }}</a></p>
+	<p><a href="{% url 'coursinary_app:subject' course.code %}">Go back to {{ course.code }} {{ course.course_number }}: {{ course }}</a></p>
 
 	<form method ='post' action="{% url 'coursinary_app:new_entry' course.code course.course_number %}" class='form'>
 		{% csrf_token %}
